@@ -1,0 +1,237 @@
+# GITHUB CAN YOU HEAR ME!!!!
+# i3 config file
+# New line as a test
+# User guide: http://i3wm.org/docs/userguide.html
+
+# SCREEN TEST 
+
+#exec xrandr --output DP2 --mode "1920x1080"
+#Uncomment for 1080p screen support
+
+exec unclutter -idle 2
+set $mod Mod4
+exec --no-startup-id setxkbmap -model pc105 -layout us -option options: grp:shift_caps_toggle,terminate:ctrl_alt_bksp
+exec syndaemon -i 1 -d
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Inconsolata 9
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+#Unmute:
+bindsym $mod+XF86AudioMute exec amixer -D pulse set Master unmute
+
+# Music player:
+bindsym $mod+p exec gnome-mplayer
+# Compton
+exec compton -b --backend glx
+#Spacemacs
+bindsym $mod+o exec emacs
+# start a terminal
+bindsym $mod+Return exec xfce4-terminal
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start a program launcher
+bindsym $mod+d exec rofi -show run -font "snap 10" -fg "#505050" -bg "#000000" -hlfg "#ffb964" -hlbg "#000000" -o 85
+# Wallpaper
+exec --no-startup-id feh --bg-fill ~/Pictures/pueblo.jpg
+
+
+#Kill nm-applet 
+bindsym $mod+Shift+m exec killall nm-applet
+#Start nm-applet
+bindsym $mod+m exec nm-applet
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+#StartXchat
+bindsym $mod+x exec xchat
+
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+b split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus a child container
+bindsym $mod+z focus child
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3 Cameron?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Power control mode
+set $power_control "[l]ock log[o]ut [s]uspend [h]ibernate [r]eboot [p]oweroff"
+mode  $power_control {
+    bindsym l exec ~/.i3/lock.sh; mode "default"
+    bindsym o exec i3-msg exit; mode "default"
+    bindsym s exec systemctl suspend; mode "default"
+    bindsym h exec systemctl hibernate; mode "default"
+    bindsym r exec systemctl reboot; mode "default"
+    bindsym p exec systemctl poweroff; mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+n mode $power_control
+
+# Mode that ignores i3 keymappings
+mode "ignore i3" {
+    bindsym Shift+Escape mode "default"
+}
+
+# Audio controls (volume up, volume down, toggle mute)
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ && pkill -SIGRTMIN+3 i3blocks
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- && pkill -SIGRTMIN+3 i3blocks
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle && pkill -SIGRTMIN+3 i3blocks
+
+# Sreen brightness controls (brightness up, brightness down)
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5 && pkill -SIGRTMIN+2 i3blocks
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5 && pkill -SIGRTMIN+2 i3blocks
+
+# Printscreen saves screenshot (with shift only focused window)
+bindsym --release Print exec --no-startup-id scrot
+bindsym --release Shift+Print exec --no-startup-id scrot -u
+
+# Media keys
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioStop exec playerctl stop
+
+# Applications
+bindsym $mod+i exec chromium
+
+# Borders
+for_window [class="^.*"] border pixel 3
+
+# Gaps
+gaps inner 20
+smart_borders no_gaps
+
+bindsym $mod+y gaps inner current minus 6
+bindsym $mod+u gaps inner current plus 6
+bindsym $mod+Shift+y gaps outer current minus 6
+bindsym $mod+Shift+u gaps outer current plus 6
+
+# class                 border  backgr. text    indicator
+client.focused          #ff5555 #6272a4 #6272a4 #6272a4
+client.unfocused        #44475a #44475a #44475a #44475a
+client.focused_inactive #323232 #333333 #ebdbb2 #323232
+client.urgent           #383a3b #383a3b #ee0000 #383a3b
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    position top
+    status_command i3status
+    tray_output eDP1
+    colors{
+        background #282a36
+        statusline #DCDCDC
+	    focused_workspace  #6272a4 #6272a4 #DCDCDC
+        active_workspace   #bd93f9 #002b36 #282a36
+        inactive_workspace #282a36 #021215 #586e75
+        urgent_workspace   #cb4b16 #dc322f #fdf6e
+    }
+}
+
+
+# Applets
+exec --no-startup-id nm-applet # network manager
+exec --no-startup-id redshift-gtk
+exec --no-startup-id udiskie --smart-tray # usb storage automounter
+exec --no-startup-id uim-toolbar-gtk3-systray
+
+# Musid daemon
+exec --no-startup-id mpd ~/.config/mpd/mpd.conf

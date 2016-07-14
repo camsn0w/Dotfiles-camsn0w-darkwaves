@@ -1,0 +1,52 @@
+general {
+	colors = false
+	interval = 1
+	output_format = i3bar
+	color_good = "#f1fa8c"
+	color_degraded = "#8c7f22"
+	color_bad = "#44475a"
+}
+
+
+
+order += "cpu_usage"
+order += "battery 0"
+order += "volume master"
+order += "wireless wlp3s0"
+order += "tztime local"
+
+wireless wlp3s0 {
+	format_up = " WiFi: %ip %quality %essid %bitrate "
+	format_down = " WiFi: (/) "
+}
+
+ethernet enp9s0 {
+	format_up = " LAN: %ip %speed "
+	format_down = " LAN: (/) "
+}
+
+battery 0 {
+	format = " Power: %status %percentage %remaining left "
+	path = "/sys/class/power_supply/BAT0/uevent"
+	low_threshold = 20
+}
+
+tztime local {
+	format = " Date: %m/%d/%y  Time: %l:%M "
+}
+
+cpu_usage {
+	format = " CPU: %usage "
+}
+
+disk "/" {
+	format = " Disk: %free "
+}
+
+volume master {
+	format = " Vol: %volume "
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
+}
+
