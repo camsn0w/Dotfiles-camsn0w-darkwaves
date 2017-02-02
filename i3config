@@ -161,10 +161,7 @@ mode  $power_control {
 }
 bindsym $mod+n mode $power_control
 
-# Mode that ignores i3 keymappings
-mode "ignore i3" {
-    bindsym Shift+Escape mode "default"
-}
+
 
 # Audio controls (volume up, volume down, toggle mute)
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ && pkill -SIGRTMIN+3 i3blocks
@@ -195,10 +192,6 @@ for_window [class="^.*"] border pixel 3
 gaps inner 20
 smart_borders no_gaps
 
-bindsym $mod+y gaps inner current minus 6
-bindsym $mod+u gaps inner current plus 6
-bindsym $mod+Shift+y gaps outer current minus 6
-bindsym $mod+Shift+u gaps outer current plus 6
 
 # class                 border  backgr. text    indicator
 client.focused          #ff5555 #6272a4 #6272a4 #6272a4
