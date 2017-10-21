@@ -204,7 +204,6 @@ client.urgent           #383a3b #383a3b #ee0000 #383a3b
 bar {
     position top
     status_command i3status
-    tray_output eDP1
     colors{
         background #282a36
         statusline #DCDCDC
