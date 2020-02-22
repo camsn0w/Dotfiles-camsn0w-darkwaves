@@ -1,0 +1,12 @@
+! Rofi
+rofi.font: Misc Termsyn 10
+rofi.padding: 20x
+rofi.line-padding: 2
+rofi.borderwidth: 4
+rofi.color-enabled: true
+rofi.hide-scrollbar: true
+rofi.separator-style: dash
+rofi.color-window: #282a36, #282a36, #282a36
+rofi.color-normal: #282a36, #CACACA, #282a36, #282a36, #6272a4
+rofi.color-urgent: argb:00000000, #282a36, argb:00000000, argb:00000000, #BE302F
+rofi.color-active: argb:00000000,#6272a4, argb:00000000, argb:00000000, #BE302F
